@@ -1,1 +1,1 @@
-data = '{"xList":[0,1,2,3],"yList":[0,1,4,9]}';
+data = '{"xList":[0,1,2,3],"yList":[0,1,4,9],"latex":"y_{1}~ax_1^2+bx_1+c","params":["a","b","c"]}';

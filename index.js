@@ -23,7 +23,7 @@ app.post('/linear', (req, res) => {
     const page = await browser.newPage();
     await page.goto(`file:${path.join(__dirname, 'linear.html')}`);
     await page.screenshot({path: 'linear.png'});
-	  await sleep(1500);
+	  await sleep(250);
     const aRaw = await page.$("#m");
     const aText = await page.evaluate(element => element.textContent, aRaw);
     const bRaw = await page.$("#b");
@@ -52,7 +52,7 @@ app.post('/quadratic', function(req, res) {
     const page = await browser.newPage();
     await page.goto(`file:${path.join(__dirname, 'quadratic.html')}`);
     await page.screenshot({path: 'quadratic.png'});
-	  await sleep(1500);
+	  await sleep(250);
     const aRaw = await page.$("#a");
     const aText = await page.evaluate(element => element.textContent, aRaw);
     const bRaw = await page.$("#b");
@@ -87,7 +87,7 @@ app.post('/exponential', function(req, res) {
     const page = await browser.newPage();
     await page.goto(`file:${path.join(__dirname, 'exponential.html')}`);
     await page.screenshot({path: 'exponential.png'});
-	  await sleep(1500);
+	  await sleep(250);
     const aRaw = await page.$("#a");
     const aText = await page.evaluate(element => element.textContent, aRaw);
     const bRaw = await page.$("#b");
@@ -128,7 +128,7 @@ app.post('/custom', function(req, res) {
     await page.goto(`file:${path.join(__dirname, 'custom.html')}`);
     await page.screenshot({path: 'custom.png'});
 
-	  await sleep(3000);
+	  await sleep(250);
     let data = {};
 
     for (let i = 0; i < params.length; i++) {
