@@ -2,13 +2,15 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const fs = require('fs')
 const app = express()
-const port = 3000
+const port = 8080
 const puppeteer = require('puppeteer')
 const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
+app.post('/', (req, res) => {
+	res.send(200);
+})
 
 app.post('/linear', (req, res) => {
 
@@ -17,10 +19,11 @@ app.post('/linear', (req, res) => {
   var a;
   var b;
   (async () => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({args: ['--no-sandbox']});
     const page = await browser.newPage();
     await page.goto(`file:${path.join(__dirname, 'linear.html')}`);
     await page.screenshot({path: 'linear.png'});
+	  await sleep(1500);
     const aRaw = await page.$("#m");
     const aText = await page.evaluate(element => element.textContent, aRaw);
     const bRaw = await page.$("#b");
@@ -45,10 +48,11 @@ app.post('/quadratic', function(req, res) {
   var c;
 
   (async () => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({args: ['--no-sandbox']});
     const page = await browser.newPage();
     await page.goto(`file:${path.join(__dirname, 'quadratic.html')}`);
     await page.screenshot({path: 'quadratic.png'});
+	  await sleep(1500);
     const aRaw = await page.$("#a");
     const aText = await page.evaluate(element => element.textContent, aRaw);
     const bRaw = await page.$("#b");
@@ -79,10 +83,11 @@ app.post('/exponential', function(req, res) {
   var b;
 
   (async () => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({args: ['--no-sandbox']});
     const page = await browser.newPage();
     await page.goto(`file:${path.join(__dirname, 'exponential.html')}`);
     await page.screenshot({path: 'exponential.png'});
+	  await sleep(1500);
     const aRaw = await page.$("#a");
     const aText = await page.evaluate(element => element.textContent, aRaw);
     const bRaw = await page.$("#b");
@@ -118,11 +123,12 @@ app.post('/custom', function(req, res) {
   });
 
   (async () => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({args: ['--no-sandbox']});
     const page = await browser.newPage();
     await page.goto(`file:${path.join(__dirname, 'custom.html')}`);
     await page.screenshot({path: 'custom.png'});
 
+	  await sleep(3000);
     let data = {};
 
     for (let i = 0; i < params.length; i++) {
@@ -159,6 +165,10 @@ function base64_encode(file) {
   var bitmap = fs.readFileSync(file);
   // convert binary data to base64 encoded string
   return new Buffer(bitmap).toString('base64');
+}
+
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 app.listen(port, () => {
