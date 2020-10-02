@@ -4,7 +4,7 @@ const fs = require('fs')
 const app = express()
 const port = 3000
 const puppeteer = require('puppeteer')
-const e = require('express')
+const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -19,7 +19,7 @@ app.post('/linear', (req, res) => {
   (async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto('file:///C:/Users/Nico%20Paoli/Documents/regressionAPI/linear.html');
+    await page.goto(`file:${path.join(__dirname, 'linear.html')}`);
     await page.screenshot({path: 'linear.png'});
     const aRaw = await page.$("#m");
     const aText = await page.evaluate(element => element.textContent, aRaw);
@@ -47,7 +47,7 @@ app.post('/quadratic', function(req, res) {
   (async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto('file:///C:/Users/Nico%20Paoli/Documents/regressionAPI/quadratic.html');
+    await page.goto(`file:${path.join(__dirname, 'quadratic.html')}`);
     await page.screenshot({path: 'quadratic.png'});
     const aRaw = await page.$("#a");
     const aText = await page.evaluate(element => element.textContent, aRaw);
@@ -81,7 +81,7 @@ app.post('/exponential', function(req, res) {
   (async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto('file:///C:/Users/Nico%20Paoli/Documents/regressionAPI/exponential.html');
+    await page.goto(`file:${path.join(__dirname, 'exponential.html')}`);
     await page.screenshot({path: 'exponential.png'});
     const aRaw = await page.$("#a");
     const aText = await page.evaluate(element => element.textContent, aRaw);
@@ -120,7 +120,7 @@ app.post('/custom', function(req, res) {
   (async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto('file:///C:/Users/Nico%20Paoli/Documents/regressionAPI/custom.html');
+    await page.goto(`file:${path.join(__dirname, 'custom.html')}`);
     await page.screenshot({path: 'custom.png'});
 
     let data = {};
